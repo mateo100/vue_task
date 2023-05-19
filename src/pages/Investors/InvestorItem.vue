@@ -3,7 +3,7 @@ import { InvestorDTO } from '@/api/investors.types'
 import { computed, PropType, ref } from 'vue'
 import Pills from '@/components/Pills.vue'
 
-const MAX_SECTORS_DISPLAY = 1 // Maximum number of sectors to display
+const MAX_SECTORS_DISPLAY = 5
 const props = defineProps({
   investor: {
     type: Object as PropType<InvestorDTO>,

@@ -12,7 +12,7 @@ const store = useInvestorsStore()
 
 const filters = reactive({
   search: '',
-  stage: '',
+  stages: '',
 })
 
 const filteredInvestors = computed(() => {
@@ -21,9 +21,9 @@ const filteredInvestors = computed(() => {
       !filters.search ||
       investor.name.toLowerCase().includes(filters.search.toLowerCase())
     const matchesStage =
-      !filters.stage ||
-      filters.stage.includes('all') ||
-      investor.stages.some((stage) => filters.stage.includes(stage.name))
+      !filters.stages ||
+      filters.stages.includes('all') ||
+      investor.stages.some((stage) => filters.stages.includes(stage.name))
     return matchesSearch && matchesStage
   })
 })
@@ -60,7 +60,7 @@ const stageOptions = [
         />
       </div>
       <FilterSelect
-        v-model="filters.stage"
+        v-model="filters.stages"
         :options="stageOptions"
         class="ml-4"
       />
