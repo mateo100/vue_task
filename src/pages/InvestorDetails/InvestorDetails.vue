@@ -32,8 +32,8 @@ const sortedSectors = computed(() => {
 })
 
 const sortedStages = computed(() => {
-  return [...investor.value.stages].sort((a, b) =>
-    stagesOrder.indexOf(b.name) - stagesOrder.indexOf(a.name)
+  return [...investor.value.stages].sort(
+    (a, b) => stagesOrder.indexOf(b.name) - stagesOrder.indexOf(a.name)
   )
 })
 </script>

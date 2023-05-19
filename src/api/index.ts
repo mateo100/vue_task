@@ -1,13 +1,13 @@
 import allInvestors from './data/investors.json'
 import { InvestorDTO } from '@/api/investors.types'
 
-export const sleep = async (ms: number) => {
+export const sleep = async (ms: number): Promise => {
   return new Promise((r) => setTimeout(r, ms))
 }
 
 export const BASE_API_URL = 'https://strapi.vestbee.com'
 
-export const getApiUrl = (path: string) => {
+export const getApiUrl = (path: string): string => {
   return new URL(path, BASE_API_URL).href
 }
 

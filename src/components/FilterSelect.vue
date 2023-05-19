@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {defineProps, ref, watch} from 'vue'
+import { defineProps, ref, watch } from 'vue'
 
 const props = defineProps({
   modelValue: {
@@ -12,12 +12,11 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['update:modelValue']);
-const selectedOption = ref(props.modelValue);
+const emit = defineEmits(['update:modelValue'])
+const selectedOption = ref(props.modelValue)
 watch(selectedOption, (newVal) => {
-  emit('update:modelValue', newVal);
-});
-
+  emit('update:modelValue', newVal)
+})
 </script>
 
 <template>
@@ -27,7 +26,14 @@ watch(selectedOption, (newVal) => {
     multiple
     size="6"
   >
-    <option v-for="option in options"  class="select__option" :key="option.value" :value="option.value">{{ option.label }}</option>
+    <option
+      v-for="option in options"
+      class="select__option"
+      :key="option.value"
+      :value="option.value"
+    >
+      {{ option.label }}
+    </option>
   </select>
 </template>
 <style scoped>

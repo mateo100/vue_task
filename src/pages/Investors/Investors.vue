@@ -6,7 +6,7 @@ import Pagination from '@/components/common/Pagination/Pagination.vue'
 import { InvestorDTO } from '@/api/investors.types'
 import { reactive, computed } from 'vue'
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid'
-import FilterSelect from "@/components/FilterSelect.vue";
+import FilterSelect from '@/components/FilterSelect.vue'
 
 const store = useInvestorsStore()
 
@@ -39,7 +39,7 @@ const stageOptions = [
   { label: 'Late seed', value: 'Late seed' },
   { label: 'Early Growth', value: 'Early Growth' },
   { label: 'Maturity', value: 'Maturity' },
-];
+]
 </script>
 
 <template>

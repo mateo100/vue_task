@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Pill from "@/components/Pill.vue";
+import Pill from '@/components/Pill.vue'
 
 defineProps<{ sectors: Array<{ name: string }> }>()
 </script>
