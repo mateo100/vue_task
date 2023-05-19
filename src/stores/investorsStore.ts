@@ -6,11 +6,13 @@ import { fetchInvestors } from '@/api'
 export const useInvestorsStore = defineStore('investors', () => {
   const investors = ref<InvestorDTO[]>([])
   const fetchInProgress = ref(false)
+  const initialFetchDone = ref(false)
+
   const fetch = async () => {
     fetchInProgress.value = true
-    const allInvestors = await fetchInvestors()
-    investors.value = allInvestors
+    investors.value = await fetchInvestors()
     fetchInProgress.value = false
+    initialFetchDone.value = true
   }
 
   const getById = (investorId: number) => {
@@ -20,6 +22,7 @@ export const useInvestorsStore = defineStore('investors', () => {
   return {
     investors,
     fetchInProgress,
+    initialFetchDone,
     fetch,
     getById,
   }

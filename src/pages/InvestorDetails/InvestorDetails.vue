@@ -12,9 +12,29 @@ const props = defineProps({
 const store = useInvestorsStore()
 const investorId = parseInt(props.investorId, 10)
 const investor = computed(() => store.getById(investorId))
+const stagesOrder = [
+  'pre-seed',
+  'seed',
+  'late-seed',
+  'early growth',
+  'growth',
+  'maturity',
+]
 
 const imgSrc = computed(() => {
   return getApiUrl(investor.value.logo.url)
+})
+
+const sortedSectors = computed(() => {
+  return [...investor.value.sectors].sort((a, b) =>
+    a.name.localeCompare(b.name)
+  )
+})
+
+const sortedStages = computed(() => {
+  return [...investor.value.stages].sort((a, b) =>
+    stagesOrder.indexOf(b.name) - stagesOrder.indexOf(a.name)
+  )
 })
 </script>
 <template>
@@ -39,7 +59,7 @@ const imgSrc = computed(() => {
         <div class="my-4">
           <h4 class="text-gray-800">Sectors</h4>
           <ul class="pl-1">
-            <li v-for="sector in investor.sectors" :key="sector.id">
+            <li v-for="sector in sortedSectors" :key="sector.id">
               <span class="text-gray-400"> - {{ sector.name }} </span>
             </li>
           </ul>
@@ -47,7 +67,7 @@ const imgSrc = computed(() => {
         <div class="my-4">
           <h4 class="text-gray-800">Stages</h4>
           <ul class="pl-1">
-            <li v-for="stage in investor.stages" :key="stage.id">
+            <li v-for="stage in sortedStages" :key="stage.id">
               <span class="text-gray-400"> - {{ stage.name }} </span>
             </li>
           </ul>

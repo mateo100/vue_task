@@ -6,24 +6,25 @@ import Pagination from '@/components/common/Pagination/Pagination.vue'
 import { InvestorDTO } from '@/api/investors.types'
 import { reactive, computed } from 'vue'
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid'
+import FilterSelect from "@/components/FilterSelect.vue";
 
 const store = useInvestorsStore()
-store.fetch()
 
 const filters = reactive({
   search: '',
+  stage: '',
 })
 
 const filteredInvestors = computed(() => {
   return store.investors.filter((investor) => {
-    if (filters.search) {
-      return (
-        investor.name
-          .toLocaleLowerCase()
-          .indexOf(filters.search.toLocaleLowerCase()) >= 0
-      )
-    }
-    return true
+    const matchesSearch =
+      !filters.search ||
+      investor.name.toLowerCase().includes(filters.search.toLowerCase())
+    const matchesStage =
+      !filters.stage ||
+      filters.stage.includes('all') ||
+      investor.stages.some((stage) => filters.stage.includes(stage.name))
+    return matchesSearch && matchesStage
   })
 })
 
@@ -31,6 +32,14 @@ const pageSize = 10
 const { pageObjects, setPage } = usePaginate<InvestorDTO>(filteredInvestors, {
   pageSize,
 })
+const stageOptions = [
+  { label: 'All', value: 'all' },
+  { label: 'Pre-seed', value: 'Pre-seed' },
+  { label: 'Seed', value: 'Seed' },
+  { label: 'Late seed', value: 'Late seed' },
+  { label: 'Early Growth', value: 'Early Growth' },
+  { label: 'Maturity', value: 'Maturity' },
+];
 </script>
 
 <template>
@@ -47,8 +56,14 @@ const { pageObjects, setPage } = usePaginate<InvestorDTO>(filteredInvestors, {
         <input
           class="border rounded-lg bg-blue-50 p-2 pl-10 text-gray-500"
           v-model="filters.search"
+          placeholder="Search by name"
         />
       </div>
+      <FilterSelect
+        v-model="filters.stage"
+        :options="stageOptions"
+        class="ml-4"
+      />
     </div>
     <div v-for="investor in pageObjects" :key="investor.id" class="my-4">
       <InvestorItem :investor="investor" />
