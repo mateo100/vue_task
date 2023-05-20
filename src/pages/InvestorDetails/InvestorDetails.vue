@@ -2,6 +2,7 @@
 import { getApiUrl } from '@/api'
 import { useInvestorsStore } from '@/stores/investorsStore'
 import { computed } from 'vue'
+import { STAGES } from '@/consts'
 const props = defineProps({
   investorId: {
     type: String,
@@ -12,30 +13,18 @@ const props = defineProps({
 const store = useInvestorsStore()
 const investorId = parseInt(props.investorId, 10)
 const investor = computed(() => store.getById(investorId))
-const stagesOrder = [
-  'pre-seed',
-  'seed',
-  'late-seed',
-  'early growth',
-  'growth',
-  'maturity',
-]
 
-const imgSrc = computed(() => {
-  return getApiUrl(investor.value.logo.url)
-})
+const imgSrc = computed(() => getApiUrl(investor.value.logo.url))
 
-const sortedSectors = computed(() => {
-  return [...investor.value.sectors].sort((a, b) =>
-    a.name.localeCompare(b.name)
+const sortedSectors = computed(() =>
+  [...investor.value.sectors].sort((a, b) => a.name.localeCompare(b.name))
+)
+
+const sortedStages = computed(() =>
+  [...investor.value.stages].sort(
+    (a, b) => STAGES.indexOf(a.name) - STAGES.indexOf(b.name)
   )
-})
-
-const sortedStages = computed(() => {
-  return [...investor.value.stages].sort(
-    (a, b) => stagesOrder.indexOf(b.name) - stagesOrder.indexOf(a.name)
-  )
-})
+)
 </script>
 <template>
   <div class="p-8">

@@ -7,6 +7,7 @@ import { InvestorDTO } from '@/api/investors.types'
 import { reactive, computed } from 'vue'
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid'
 import FilterSelect from '@/components/FilterSelect.vue'
+import { STAGES } from '@/consts'
 
 const store = useInvestorsStore()
 
@@ -21,8 +22,7 @@ const filteredInvestors = computed(() => {
       !filters.search ||
       investor.name.toLowerCase().includes(filters.search.toLowerCase())
     const matchesStage =
-      !filters.stages ||
-      filters.stages.includes('all') ||
+      !filters.stages.length ||
       investor.stages.some((stage) => filters.stages.includes(stage.name))
     return matchesSearch && matchesStage
   })
@@ -32,14 +32,8 @@ const pageSize = 10
 const { pageObjects, setPage } = usePaginate<InvestorDTO>(filteredInvestors, {
   pageSize,
 })
-const stageOptions = [
-  { label: 'All', value: 'all' },
-  { label: 'Pre-seed', value: 'Pre-seed' },
-  { label: 'Seed', value: 'Seed' },
-  { label: 'Late seed', value: 'Late seed' },
-  { label: 'Early Growth', value: 'Early Growth' },
-  { label: 'Maturity', value: 'Maturity' },
-]
+
+const stageOptions = STAGES.map((stage) => ({ value: stage, label: stage }))
 </script>
 
 <template>
