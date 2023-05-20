@@ -37,19 +37,11 @@ function toggleShowAllSectors() {
     </h3>
     <div class="mt-2">
       <strong>Stages:</strong>
-      <div class="flex flex-wrap mt-1">
-        <span
-          v-for="stage in investor.stages"
-          :key="stage"
-          class="mr-2 mb-2 px-2 py-1 bg-gray-200 rounded-lg text-gray-800"
-        >
-          {{ stage.name }}
-        </span>
-      </div>
+      <Pills :elements="investor.stages" />
     </div>
     <div class="mt-2">
       <strong>Sectors:</strong>
-      <Pills :sectors="displayedSectors" />
+      <Pills :elements="displayedSectors" />
       <div v-if="remainingSectorCount > 0" class="mt-2">
         <button
           @click="toggleShowAllSectors"
@@ -61,7 +53,7 @@ function toggleShowAllSectors() {
     </div>
     <Pills
       v-if="showAllSectors && remainingSectorCount > 0"
-      :sectors="remainingSectors"
+      :elements="remainingSectors"
     />
   </div>
 </template>
