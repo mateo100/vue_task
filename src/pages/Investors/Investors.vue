@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { useInvestorsStore } from '@/stores/investorsStore'
-import InvestorItem from './InvestorItem.vue'
 import { usePaginate } from '@/hooks/usePaginate'
-import Pagination from '@/components/common/Pagination/Pagination.vue'
 import { InvestorDTO } from '@/api/investors.types'
 import { reactive, computed } from 'vue'
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid'
-import FilterSelect from '@/components/FilterSelect.vue'
 import { STAGES } from '@/consts'
+import InvestorItem from '@/pages/Investors/InvestorItem.vue'
+import FilterSelect from '@/components/FilterSelect.vue'
+import Pagination from '@/components/common/Pagination/Pagination.vue'
 
 const store = useInvestorsStore()
 
 const filters = reactive({
   search: '',
-  stages: '',
+  stages: [],
 })
 
 const filteredInvestors = computed(() => {
